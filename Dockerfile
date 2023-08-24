@@ -12,6 +12,11 @@
 
 
 FROM rockylinux:9.0
+
+ENV DCO_CRONIE_START=1 \
+    S6_KEEP_ENV=1 \
+    S6_BEHAVIOUR_IF_STAGE2_FAILS=1
+
 ARG BRANCH
 RUN echo -e "[metwork_${BRANCH}]\n\
 name=Metwork Continuous Integration Branch ${BRANCH}\n\
@@ -19,5 +24,18 @@ baseurl=http://metwork-framework.org/pub/metwork/continuous_integration/rpms/${B
 gpgcheck=0\n\
 enabled=1\n\
 metadata_expire=0\n" >/etc/yum.repos.d/metwork.repo
+
+RUN yum -y install epel-release yum-utils
+RUN yum-config-manager --enable powertools
+RUN dnf module -y enable javapackages-tools
+
 RUN yum clean all
 RUN yum -y install metwork-mfbase-full langpacks-fr
+RUN yum -y install initscripts vim coreutils-common cronie make
+
+COPY root /
+RUN /build/s6_overlay.sh && \
+    yum clean all && \
+    rm -Rf /build
+
+ENTRYPOINT ["/init"]
