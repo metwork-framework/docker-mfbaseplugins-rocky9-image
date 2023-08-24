@@ -33,9 +33,9 @@ if [ -z ${BRANCH} ]; then
 fi
 TAG_LATEST=""
 
-TAG_BRANCH="metwork/mfbaseplugins-centos9-buildimage:${BRANCH}"
+TAG_BRANCH="metwork/mfbaseplugins-rocky9-image:${BRANCH}"
 if test "${BRANCH}" = "master"; then
-    TAG_LATEST="metwork/mfbaseplugins-centos9-buildimage:latest"
+    TAG_LATEST="metwork/mfbaseplugins-rocky9-image:latest"
 fi 
 
 echo "branch=${BRANCH}" >> ${GITHUB_OUTPUT}
