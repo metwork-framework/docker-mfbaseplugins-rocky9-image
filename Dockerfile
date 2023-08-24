@@ -25,8 +25,6 @@ gpgcheck=0\n\
 enabled=1\n\
 metadata_expire=0\n" >/etc/yum.repos.d/metwork.repo
 
-RUN dnf module -y enable javapackages-tools
-
 RUN yum clean all
 RUN yum -y install metwork-mfbase-full langpacks-fr
 RUN yum -y install initscripts vim coreutils-common cronie make
