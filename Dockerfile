@@ -11,7 +11,7 @@
     
 
 
-FROM rockylinux:9.0
+FROM rockylinux:9.2
 
 ENV DCO_CRONIE_START=1 \
     S6_KEEP_ENV=1 \
